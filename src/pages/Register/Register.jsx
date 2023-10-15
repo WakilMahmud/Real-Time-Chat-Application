@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
 	const {
@@ -10,9 +11,43 @@ const Register = () => {
 	} = useForm();
 
 	const onSubmit = async ({ email, firstName, lastName }) => {
-		console.log(email, firstName, lastName);
+		// console.log(email, firstName, lastName);
 
-		reset();
+		const newUser = { Email: email, UserName: firstName + " " + lastName };
+		console.log(newUser);
+
+		if (email) {
+			fetch("https://localhost:44370/api/Registration/registration", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newUser),
+			})
+				.then((res) => {
+					if (!res.ok) {
+						throw new Error("Network response was not ok");
+					}
+
+					Swal.fire({
+						icon: "success",
+						title: "User Registered Successfully",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+
+					reset();
+				})
+				.catch((err) => {
+					Swal.fire({
+						icon: "error",
+						title: "Something went wrong",
+						showConfirmButton: false,
+						timer: 1500,
+					});
+					console.log("Error: ", err.message);
+				});
+		}
 	};
 
 	return (
