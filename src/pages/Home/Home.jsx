@@ -2,75 +2,71 @@
 import { useForm } from "react-hook-form";
 import ChatBox from "../../components/ChatBox";
 import { BACKEND_URL } from "../../api/api";
+import { BiSend } from "react-icons/bi";
 
 const Home = () => {
-	// const connection = new signalR.HubConnectionBuilder().withUrl(`${BACKEND_URL}/chatHub`).configureLogging(signalR.LogLevel.Information).build();
+	const connection = new signalR.HubConnectionBuilder().withUrl(`${BACKEND_URL}/chatHub`).configureLogging(signalR.LogLevel.Information).build();
 
-	// const start = async () => {
-	// 	try {
-	// 		await connection.start();
-	// 		console.log("SignalR Connected.");
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 		// setTimeout(start, 5000);
-	// 	}
-	// };
+	const start = async () => {
+		try {
+			await connection.start();
+			console.log("SignalR Connected.");
+		} catch (err) {
+			console.log(err);
+			// setTimeout(start, 5000);
+		}
+	};
 
-	// connection.onclose(async () => {
-	// 	await start();
-	// });
+	connection.onclose(async () => {
+		await start();
+	});
 
-	// // Start the connection.
-	// start();
+	// Start the connection.
+	start();
 
-	// const {
-	// 	register,
-	// 	handleSubmit,
-	// 	reset,
-	// 	formState: { errors },
-	// } = useForm();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm();
 
-	// const onSubmit = async (data) => {
-	// 	const usr = data.user;
-	// 	const msg = data.message;
-	// 	// console.log(usr);
-	// 	// console.log(msg);
+	const onSubmit = async ({ message }) => {
+		console.log(message);
 
-	// 	//if user is available, then user will join the chat (different from video)
-	// 	try {
-	// 		await connection.invoke("SendMessage", usr, msg);
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
+		// //if user is available, then user will join the chat (different from video)
+		// try {
+		// 	await connection.invoke("SendMessage", usr, msg);
+		// } catch (err) {
+		// 	console.error(err);
+		// }
 
-	// 	//notified message from server
-	// 	await connection.on("ReceiveMessage", (user, message) => {
-	// 		console.log(`${user} : ${message}`);
-	// 	});
+		// //notified message from server
+		// await connection.on("ReceiveMessage", (user, message) => {
+		// 	console.log(`${user} : ${message}`);
+		// });
 
-	// 	reset();
-	// };
+		reset();
+	};
 
 	return (
 		<>
-			{/* <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center items-center bg-sky-200 h-56">
+			<form onSubmit={handleSubmit(onSubmit)} className="flex justify-center items-center bg-sky-200 h-56">
 				<input
 					type="text"
 					id="userInput"
-					placeholder="Enter Your Name"
+					placeholder="Message"
 					className="input input-bordered input-info w-full max-w-xs mr-2"
-					{...register("user", { required: true })}
+					{...register("message", { required: true })}
 				/>
-				{errors.user && <span className="text-red-500">This field is required</span>}
-				<input
-					type="text"
-					id="messageInput"
-					placeholder="Type Message"
-					className="input input-bordered input-info w-full max-w-xs mr-2"
-					{...register("message")}
-				/>
-				<input type="submit" id="sendButton" className="btn btn-error" />
-			</form> */}
+				{errors.message && <span className="text-red-500">Empty Message</span>}
+
+				<button className="btn btn-info">
+					<BiSend className="text-2xl">
+						<input type="submit" id="sendButton" className="btn btn-error" />
+					</BiSend>
+				</button>
+			</form>
 
 			<ChatBox></ChatBox>
 		</>

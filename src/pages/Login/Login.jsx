@@ -31,12 +31,12 @@ const Login = () => {
 				})
 				.then((data) => {
 					if (data.statusCode == 302) {
-						Swal.fire({
-							icon: "success",
-							title: "Valid User",
-							showConfirmButton: false,
-							timer: 1500,
-						});
+						// Swal.fire({
+						// 	icon: "success",
+						// 	title: "Valid User",
+						// 	showConfirmButton: false,
+						// 	timer: 1500,
+						// });
 						navigate("/");
 						reset();
 					} else {
