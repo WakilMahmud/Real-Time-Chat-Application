@@ -11,7 +11,7 @@ const Navbar = () => {
 
 	return (
 		<>
-			<div className="flex justify-around py-12">
+			<div className="flex justify-around py-4">
 				<div className="text-6xl">
 					<BiChat></BiChat>
 				</div>
