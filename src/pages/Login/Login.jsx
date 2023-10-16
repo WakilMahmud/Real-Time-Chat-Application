@@ -13,7 +13,7 @@ const Login = () => {
 	} = useForm();
 
 	const onSubmit = async ({ email }) => {
-		console.log(email);
+		// console.log(email);
 		if (email) {
 			fetch("https://localhost:44370/api/Registration/login", {
 				method: "POST",
@@ -37,7 +37,9 @@ const Login = () => {
 						// 	showConfirmButton: false,
 						// 	timer: 1500,
 						// });
-						navigate("/");
+						navigate("/chat");
+						if (data.userName !== " ") localStorage.setItem("User", JSON.stringify({ Email: email, UserName: data.userName }));
+						else localStorage.setItem("User", JSON.stringify({ Email: email, UserName: "Chat User" }));
 						reset();
 					} else {
 						Swal.fire({
@@ -65,7 +67,7 @@ const Login = () => {
 				<div className="flex flex-col w-2/5">
 					<div className="flex">
 						<input
-							type="text"
+							type="email"
 							placeholder="Enter Email"
 							className="input input-bordered input-info w-full  mr-2"
 							{...register("email", { required: true })}

@@ -68,7 +68,7 @@ const Register = () => {
 				className="flex flex-col space-y-2 justify-center items-center  border  border-black rounded w-1/2 mx-auto my-32 h-80"
 			>
 				<input
-					type="text"
+					type="email"
 					placeholder="Enter Email"
 					className="input input-bordered input-info w-full max-w-xs mr-2"
 					{...register("email", { required: true })}

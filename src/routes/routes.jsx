@@ -3,8 +3,9 @@ import Main from "../layout/Main";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import * as routePath from "./routePath";
 import Login from "../pages/Login/Login";
-import Home from "../pages/Home/Home";
 import Register from "../pages/Register/Register";
+import Home from "../pages/Home/Home";
+import ChatPage from "../pages/ChatPage/ChatPage";
 
 const router = createBrowserRouter([
 	{
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
 			{
 				path: routePath.REGISTER,
 				element: <Register></Register>,
+			},
+			{
+				path: routePath.CHAT,
+				element: <ChatPage></ChatPage>,
 			},
 		],
 	},
