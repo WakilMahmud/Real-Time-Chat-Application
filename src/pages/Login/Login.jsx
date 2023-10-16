@@ -26,23 +26,32 @@ const Login = () => {
 					if (!res.ok) {
 						throw new Error("Network response was not ok");
 					}
-					console.log(res);
 
-					navigate("/");
-
-					Swal.fire({
-						icon: "success",
-						title: "Valid User",
-						showConfirmButton: false,
-						timer: 1500,
-					});
-
-					reset();
+					return res.json();
+				})
+				.then((data) => {
+					if (data.statusCode == 302) {
+						Swal.fire({
+							icon: "success",
+							title: "Valid User",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+						navigate("/");
+						reset();
+					} else {
+						Swal.fire({
+							icon: "error",
+							title: "Unauthorized",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					}
 				})
 				.catch((err) => {
 					Swal.fire({
 						icon: "error",
-						title: "Invalid User",
+						title: "Something went wrong",
 						showConfirmButton: false,
 						timer: 1500,
 					});
@@ -50,7 +59,6 @@ const Login = () => {
 				});
 		}
 	};
-
 	return (
 		<>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex justify-center items-center bg-sky-200 h-56">

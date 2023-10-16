@@ -14,7 +14,7 @@ const Register = () => {
 		// console.log(email, firstName, lastName);
 
 		const newUser = { Email: email, UserName: firstName + " " + lastName };
-		console.log(newUser);
+		// console.log(newUser);
 
 		if (email) {
 			fetch("https://localhost:44370/api/Registration/registration", {
@@ -29,14 +29,25 @@ const Register = () => {
 						throw new Error("Network response was not ok");
 					}
 
-					Swal.fire({
-						icon: "success",
-						title: "User Registered Successfully",
-						showConfirmButton: false,
-						timer: 1500,
-					});
-
-					reset();
+					return res.json();
+				})
+				.then((data) => {
+					if (data.statusCode == 201) {
+						Swal.fire({
+							icon: "success",
+							title: "User Registered Successfully",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+						reset();
+					} else {
+						Swal.fire({
+							icon: "error",
+							title: "Expectation Failed",
+							showConfirmButton: false,
+							timer: 1500,
+						});
+					}
 				})
 				.catch((err) => {
 					Swal.fire({
