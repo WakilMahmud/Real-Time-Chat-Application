@@ -1,43 +1,45 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiChat } from "react-icons/bi";
+import { FaRegUserCircle } from "react-icons/fa";
+import { useUser } from "../../../provider/userProvider";
+
 const Navbar = () => {
-	const currentUserObj = JSON.parse(localStorage.getItem("User"));
-	const [user, setUser] = useState(currentUserObj?.UserName);
-
-	// useEffect(() => {
-	// 	const loggedUser = JSON.parse(localStorage.getItem("User"));
-	// 	setUser(loggedUser?.UserName);
-	// }, []);
-
+	const { user, setUser } = useUser();
+	// console.log(user);
 	return (
 		<>
-			<div className="flex justify-around py-4">
-				<Link to="/">
-					<div className="text-6xl">
-						<BiChat></BiChat>
-					</div>
-				</Link>
-				{user ? (
-					<Link to="/login">
-						<button
-							className="btn btn-outline btn-success"
-							onClick={() => {
-								localStorage.removeItem("User");
-								setUser(null);
-							}}
-						>
-							Logout
-						</button>
+			<div className="flex justify-between px-4 lg:px-16 py-4 bg-black">
+				<div>
+					<Link to="/">
+						<BiChat className="text-6xl text-purple-500"></BiChat>
 					</Link>
-				) : (
-					<Link to="/login">
-						<button className="btn btn-outline btn-success">Login</button>
-					</Link>
-				)}
-				{user}
+				</div>
+				<div className="flex flex-col lg:flex-row  items-center gap-4">
+					{user && (
+						<div className="text-white flex gap-2 items-center text-2xl">
+							<FaRegUserCircle></FaRegUserCircle>
+							<p className="text-sm lg:text-xl">{user?.UserName}</p>
+						</div>
+					)}
+					{user?.UserName ? (
+						<Link to="/login">
+							<button
+								className="btn btn-outline btn-success w-32"
+								onClick={() => {
+									localStorage.removeItem("User");
+									setUser(null);
+								}}
+							>
+								Logout
+							</button>
+						</Link>
+					) : (
+						<Link to="/login">
+							<button className="btn btn-success hover:bg-green-300 w-32">Login</button>
+						</Link>
+					)}
+				</div>
 			</div>
-			<hr />
 		</>
 	);
 };

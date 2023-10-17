@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 
 const ChatBox = () => {
 	const currentUserObj = JSON.parse(localStorage.getItem("User"));
-	// console.log(currentUserObj);
-	// const [loggedUser, setLoggedUser] = useState(currentUser.UserName);
 
 	// const [chats, setChats] = useState([]);
 	// console.log(chats);
@@ -45,12 +43,6 @@ const ChatBox = () => {
 			} catch (error) {
 				console.log(error);
 			}
-
-			// try {
-			// 	await receiveMessage();
-			// } catch (error) {
-			// 	console.log(error);
-			// }
 		};
 
 		const startApp = async () => {
@@ -79,31 +71,6 @@ const ChatBox = () => {
 	} catch (err) {
 		console.error(err);
 	}
-
-	// const receiveMessage = async () => {
-	// 	// const currentUser = currentUserObj.UserName;
-	// 	// if (!currentUser) return;
-	// 	// try {
-	// 	// 	await connection.on("ReceiveMessage", (user, message) => {
-	// 	// 		const messageClass = currentUser === user ? "send" : "received";
-	// 	// 		appendMessage(message, messageClass);
-	// 	// 		const alertSound = new Audio("chat-sound.mp3");
-	// 	// 		alertSound.play();
-	// 	// 	});
-	// 	// } catch (error) {
-	// 	// 	console.log(error);
-	// 	// }
-
-	// 	try {
-	// 		await connection.on("ReceiveMessage", (user, message) => {
-	// 			console.log(`${user} : ${message}`);
-	// 			// setChats((chats) => [...chats, { user, message }]);
-	// 		});
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-
-	// };
 
 	const {
 		register,
