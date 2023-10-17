@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiChat } from "react-icons/bi";
 const Navbar = () => {
@@ -12,9 +12,11 @@ const Navbar = () => {
 	return (
 		<>
 			<div className="flex justify-around py-4">
-				<div className="text-6xl">
-					<BiChat></BiChat>
-				</div>
+				<Link to="/">
+					<div className="text-6xl">
+						<BiChat></BiChat>
+					</div>
+				</Link>
 				{user ? (
 					<Link to="/login">
 						<button

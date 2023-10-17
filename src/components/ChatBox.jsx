@@ -20,16 +20,87 @@ const ChatBox = () => {
 			console.log("SignalR Connected.");
 		} catch (err) {
 			console.log(err);
-			setTimeout(start, 1000);
+			// setTimeout(start, 1000);
 		}
 	};
 
-	connection.onclose(async () => {
+	const joinUser = async () => {
+		// console.log(currentUserObj.UserName);
+		const name = currentUserObj.UserName;
+
+		if (name) {
+			await joinChat(name);
+		}
+	};
+
+	const joinChat = async (user) => {
+		if (!user) return;
+		try {
+			const message = `${user} joined`;
+			await connection.invoke("JoinChat", user, message);
+		} catch (error) {
+			console.log(error);
+		}
+
+		try {
+			await receiveMessage();
+		} catch (error) {
+			console.log(error);
+		}
+
+		// try {
+		// 	await connection.invoke("JoinChat", currentUserObj.UserName, currentMessage);
+		// 	console.log(`${currentUser.UserName} has joined`);
+		// } catch (err) {
+		// 	console.error(err);
+		// }
+	};
+
+	const receiveMessage = async () => {
+		const currentUser = currentUserObj.UserName;
+		if (!currentUser) return;
+		// try {
+		// 	await connection.on("ReceiveMessage", (user, message) => {
+		// 		const messageClass = currentUser === user ? "send" : "received";
+		// 		appendMessage(message, messageClass);
+		// 		const alertSound = new Audio("chat-sound.mp3");
+		// 		alertSound.play();
+		// 	});
+		// } catch (error) {
+		// 	console.log(error);
+		// }
+
+		try {
+			await connection.on("ReceiveMessage", (user, message) => {
+				console.log(`${user} : ${message}`);
+			});
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	const sendMessage = async (user, message) => {
+		try {
+			await connection.invoke("SendMessage", user, message);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// starting the app
+	const startApp = async () => {
 		await start();
-	});
+		await joinUser();
+	};
+
+	startApp();
+
+	// connection.onclose(async () => {
+	// 	await start();
+	// });
 
 	//start the connection
-	start();
+	// start();
 
 	const {
 		register,
@@ -40,29 +111,18 @@ const ChatBox = () => {
 
 	const onSubmit = async ({ message }) => {
 		// setCurrentMessage(message);
-		// try {
-		// 	await connection.invoke("JoinChat", currentUserObj.UserName, currentMessage);
-		// 	console.log(`${currentUser.UserName} has joined`);
-		// } catch (err) {
-		// 	console.error(err);
-		// }
+		const currentUser = currentUserObj.UserName;
+		if (!currentUser) return;
 
-		try {
-			await connection.invoke("SendMessage", currentUserObj.UserName, message);
-		} catch (err) {
-			console.error(err);
+		if (message) {
+			await sendMessage(currentUser, message);
+			reset();
+			try {
+				await receiveMessage();
+			} catch (error) {
+				console.log(error.message);
+			}
 		}
-
-		try {
-			await connection.on("ReceiveMessage", (user, message) => {
-				console.log(`${user} : ${message}`);
-				// setChats([...chats, { user, message }]);
-				reset();
-			});
-		} catch (err) {
-			console.error(err);
-		}
-		// reset();
 	};
 
 	return (
@@ -90,7 +150,7 @@ const ChatBox = () => {
 				<input
 					type="text"
 					placeholder="Enter Message"
-					className="input input-bordered input-info w-4/5 mr-2"
+					className="input input-bordered input-info w-4/5 mr-2 text-black"
 					{...register("message", { required: true })}
 				/>
 				{errors.message && <span className="text-red-500">Empty Message</span>}
