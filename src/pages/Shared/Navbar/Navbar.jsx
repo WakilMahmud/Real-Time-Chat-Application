@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiChat } from "react-icons/bi";
 const Navbar = () => {
-	const [user, setUser] = useState("");
+	const currentUserObj = JSON.parse(localStorage.getItem("User"));
+	const [user, setUser] = useState(currentUserObj?.UserName);
 
 	// useEffect(() => {
 	// 	const loggedUser = JSON.parse(localStorage.getItem("User"));
@@ -34,6 +35,7 @@ const Navbar = () => {
 						<button className="btn btn-outline btn-success">Login</button>
 					</Link>
 				)}
+				{user}
 			</div>
 			<hr />
 		</>
