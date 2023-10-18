@@ -22,7 +22,7 @@ const Navbar = () => {
 						</div>
 					)}
 					{user?.UserName ? (
-						<Link to="/login">
+						<Link to="/">
 							<button
 								className="btn btn-outline btn-success w-32"
 								onClick={() => {

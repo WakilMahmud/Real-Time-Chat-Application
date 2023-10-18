@@ -81,7 +81,7 @@ const Login = () => {
 					<div className="flex flex-col lg:flex-row space-y-2 lg:space-y-0">
 						<input
 							type="email"
-							placeholder="Enter Email"
+							placeholder="Enter Your Email"
 							className="input input-bordered input-info w-full  mr-2"
 							{...register("email", { required: true })}
 						/>
