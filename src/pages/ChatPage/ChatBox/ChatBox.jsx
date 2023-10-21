@@ -16,8 +16,6 @@ const ChatBox = ({ targetUser }) => {
 		setDirectUser(targetUser.toUpperCase());
 	}, [targetUser]);
 
-	// const connection = new signalR.HubConnectionBuilder().withUrl(`${BACKEND_URL}/chatHub`).configureLogging(signalR.LogLevel.Information).build();
-
 	const start = async () => {
 		try {
 			await connection.start();
@@ -66,32 +64,6 @@ const ChatBox = ({ targetUser }) => {
 		}
 	};
 
-	// const directMessage = async (user, message) => {
-	// 	try {
-	// 		await connection.invoke("DirectMessage", user, message);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
-
-	// try {
-	// 	connection.on("DirectMessage", (user, message) => {
-	// 		console.log(`${user} : ${message}`);
-	// 		setChats((chats) => [...chats, { user, message }]);
-	// 	});
-	// } catch (err) {
-	// 	console.error(err);
-	// }
-
-	// try {
-	// 	connection.on("ReceiveMessage", (user, message) => {
-	// 		console.log(`${user} : ${message}`);
-	// 		setChats((chats) => [...chats, { user, message }]);
-	// 	});
-	// } catch (err) {
-	// 	console.error(err);
-	// }
-
 	const {
 		register,
 		handleSubmit,
@@ -106,10 +78,14 @@ const ChatBox = ({ targetUser }) => {
 		// console.log(currentUser, targetUser);
 
 		if (message) {
-			// await start();
-			await sendMessage(currentUser, message);
-			// await directMessage(currentUser, message);
-			// await connection.invoke("SendPrivateMessage", targetUser, message);
+			// await sendMessage(currentUser, message);
+			// await sendMessage(targetUser, message);
+			// await directMessage(targetUser, message);
+			try {
+				await connection.invoke("SendPrivateMessage", targetUser, currentUser, message);
+			} catch (error) {
+				console.log(error);
+			}
 			reset();
 		}
 	};
