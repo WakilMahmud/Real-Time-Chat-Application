@@ -1,8 +1,13 @@
-# React + Vite
+# Real Time Chat Application -- Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Setting Up the Development Environment
 
-Currently, two official plugins are available:
+- Step-1: Clone the repository
+  <code>https://github.com/WakilMahmud/Real-Time-Chat-Application</code>
+- Step-2: Open Project in Visual Studio Code. Install the required Node.js packages using npm:
+  <code>npm install</code>
+- Step-3: Run the application <code>npm run dev</code>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Server Side Repository:
+
+https://github.com/WakilMahmud/RealTime-Chat-Server

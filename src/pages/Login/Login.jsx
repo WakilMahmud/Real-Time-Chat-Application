@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useUser } from "../../provider/userProvider";
 import { HiOutlineExclamationTriangle } from "react-icons/hi2";
+import { BACKEND_URL } from "../../api/api";
+import { REGISTER, CHAT } from "../../routes/routePath";
 const Login = () => {
 	const { setUser } = useUser();
 
@@ -18,7 +20,7 @@ const Login = () => {
 	const onSubmit = async ({ email }) => {
 		// console.log(email);
 		if (email) {
-			fetch("https://localhost:44370/api/Registration/login", {
+			fetch(`${BACKEND_URL}/api/Registration/login`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -41,7 +43,7 @@ const Login = () => {
 						// 	timer: 1500,
 						// });
 
-						navigate("/chat");
+						navigate(`${CHAT}`);
 						if (data.userName !== " ") localStorage.setItem("User", JSON.stringify({ Email: email, UserName: data.userName }));
 						else localStorage.setItem("User", JSON.stringify({ Email: email, UserName: "Chat User" }));
 
@@ -90,7 +92,7 @@ const Login = () => {
 					</div>
 					<div className="">
 						<span className="text-sm">Not a member?</span>
-						<Link to="/register">
+						<Link to={REGISTER}>
 							<button className="btn btn-link text-sm">Register</button>
 						</Link>
 					</div>

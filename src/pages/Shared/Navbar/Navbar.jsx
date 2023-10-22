@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BiChat } from "react-icons/bi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useUser } from "../../../provider/userProvider";
+import { ROOT, LOGIN } from "../../../routes/routePath";
 
 const Navbar = () => {
 	const { user, setUser } = useUser();
@@ -10,7 +11,7 @@ const Navbar = () => {
 		<>
 			<div className="flex justify-between px-4 lg:px-16 py-4 bg-black">
 				<div>
-					<Link to="/">
+					<Link to={ROOT}>
 						<BiChat className="text-6xl text-purple-500"></BiChat>
 					</Link>
 				</div>
@@ -22,7 +23,7 @@ const Navbar = () => {
 						</div>
 					)}
 					{user?.UserName ? (
-						<Link to="/">
+						<Link to={ROOT}>
 							<button
 								className="btn btn-outline btn-success w-32"
 								onClick={() => {
@@ -34,7 +35,7 @@ const Navbar = () => {
 							</button>
 						</Link>
 					) : (
-						<Link to="/login">
+						<Link to={LOGIN}>
 							<button className="btn btn-success hover:bg-green-300 w-32">Login</button>
 						</Link>
 					)}

@@ -17,11 +17,11 @@ connection.on("ReceiveMessage", function (user, message) {
 			</div>`;
 });
 
-connection
-	.start()
-	.then(function () {
-		console.log("SignalR Connected.");
-	})
-	.catch(function (err) {
-		return console.error(err.toString());
-	});
+// connection
+// 	.start()
+// 	.then(function () {
+// 		console.log("SignalR Connected.");
+// 	})
+// 	.catch(function (err) {
+// 		return console.error(err.toString());
+// 	});

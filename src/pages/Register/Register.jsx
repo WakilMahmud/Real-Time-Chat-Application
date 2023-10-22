@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { HiOutlineExclamationTriangle } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { BACKEND_URL } from "../../api/api";
+import { LOGIN } from "../../routes/routePath";
 
 const Register = () => {
 	const {
@@ -18,7 +20,7 @@ const Register = () => {
 		// console.log(newUser);
 
 		if (email) {
-			fetch("https://localhost:44370/api/Registration/registration", {
+			fetch(`${BACKEND_URL}/api/Registration/registration`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -104,7 +106,7 @@ const Register = () => {
 				<input type="submit" className="btn btn-success hover:bg-green-300 w-full" value="Submit" />
 				<div className="">
 					<span className="text-sm">Already member?</span>
-					<Link to="/login">
+					<Link to={LOGIN}>
 						<button className="btn btn-link text-sm">Login</button>
 					</Link>
 				</div>

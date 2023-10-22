@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import { BiRadioCircle } from "react-icons/bi";
 
 const UserChat = ({ directUser }) => {
+	useEffect(() => {
+		document.getElementById("messagesList").textContent = "";
+	}, [directUser]);
 	return (
 		<>
 			{directUser && (
@@ -16,6 +20,7 @@ const UserChat = ({ directUser }) => {
 					</div>
 
 					<div>
+						{/* <p>{directUser} Chat Dialogue</p> */}
 						<ul id="messagesList" className="px-4"></ul>
 					</div>
 				</>

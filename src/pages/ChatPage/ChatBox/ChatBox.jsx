@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 
 import { BiSend } from "react-icons/bi";
-
-// import { BACKEND_URL } from "../../../api/api";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import UserChat from "../Users/UserChat";
@@ -56,13 +54,13 @@ const ChatBox = ({ targetUser }) => {
 		startApp();
 	}, []);
 
-	const sendMessage = async (user, message) => {
-		try {
-			await connection.invoke("SendMessage", user, message);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	// const sendMessage = async (user, message) => {
+	// 	try {
+	// 		await connection.invoke("SendMessage", user, message);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	const {
 		register,
@@ -79,8 +77,6 @@ const ChatBox = ({ targetUser }) => {
 
 		if (message) {
 			// await sendMessage(currentUser, message);
-			// await sendMessage(targetUser, message);
-			// await directMessage(targetUser, message);
 			try {
 				await connection.invoke("SendPrivateMessage", targetUser, currentUser, message);
 			} catch (error) {
@@ -93,9 +89,10 @@ const ChatBox = ({ targetUser }) => {
 	return (
 		<>
 			{directUser ? (
-				<div className="w-full h-[calc(100vh-93px)] bg-blue-200 lg:bg-gray-200  overflow-y-scroll">
+				<div className="w-full h-[calc(100vh-180px)] bg-blue-200 lg:bg-gray-200  overflow-y-scroll">
 					<UserChat directUser={directUser}></UserChat>
-					<form onSubmit={handleSubmit(onSubmit)} className="flex justify-center fixed bottom-4 lg:right-56 w-1/2">
+
+					<form onSubmit={handleSubmit(onSubmit)} className="flex justify-center fixed bottom-4 lg:right-56 w-full lg:w-1/2">
 						<input
 							type="text"
 							id="messageInput"
