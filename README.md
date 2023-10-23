@@ -2,9 +2,9 @@
 
 ### Technology:
 
-Frontend: <b>React Js</b>
-Backend: <b>C#.Net Core Web API</b>
-Database: <b>MS SQL Server</b>
+- Frontend: <b>React Js</b>
+- Backend: <b>C#.Net Core Web API</b>
+- Database: <b>MS SQL Server</b>
 
 ### Setting Up the Development Environment
 
@@ -20,4 +20,4 @@ https://github.com/WakilMahmud/RealTime-Chat-Server
 
 ### Project Live Demonstration:
 
-https://drive.google.com/file/d/1JbGoYzTu6G5s9qWfKf93Qqzs8c8iktm7/view?usp=sharing
+https://drive.google.com/file/d/1ES3FJzH3NIw8jLu1KjqCcL1OsnVnGu1n/view?usp=sharing

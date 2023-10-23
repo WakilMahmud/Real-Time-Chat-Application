@@ -1,6 +1,4 @@
 /* eslint-disable no-undef */
-
-import { BiSend } from "react-icons/bi";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import UserChat from "../Users/UserChat";
@@ -54,13 +52,13 @@ const ChatBox = ({ targetUser }) => {
 		startApp();
 	}, []);
 
-	// const sendMessage = async (user, message) => {
-	// 	try {
-	// 		await connection.invoke("SendMessage", user, message);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
+	const sendMessage = async (user, message) => {
+		try {
+			await connection.invoke("SendMessage", user, message);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const {
 		register,
@@ -76,12 +74,12 @@ const ChatBox = ({ targetUser }) => {
 		// console.log(currentUser, targetUser);
 
 		if (message) {
-			// await sendMessage(currentUser, message);
-			try {
-				await connection.invoke("SendPrivateMessage", targetUser, currentUser, message);
-			} catch (error) {
-				console.log(error);
-			}
+			await sendMessage(currentUser, message);
+			// try {
+			// 	await connection.invoke("SendPrivateMessage", targetUser, currentUser, message);
+			// } catch (error) {
+			// 	console.log(error);
+			// }
 			reset();
 		}
 	};
@@ -89,24 +87,19 @@ const ChatBox = ({ targetUser }) => {
 	return (
 		<>
 			{directUser ? (
-				<div className="w-full h-[calc(100vh-180px)] bg-blue-200 lg:bg-gray-200  overflow-y-scroll">
+				<div className="w-full h-[calc(100vh-92px)]  bg-gray-200 border border-gray-300">
 					<UserChat directUser={directUser}></UserChat>
-
-					<form onSubmit={handleSubmit(onSubmit)} className="flex justify-center fixed bottom-4 lg:right-56 w-full lg:w-1/2">
+					<form onSubmit={handleSubmit(onSubmit)} className="flex fixed bottom-0 w-full lg:w-3/5">
 						<input
 							type="text"
 							id="messageInput"
-							placeholder="Enter Message"
-							className="input input-bordered input-info w-4/5 mr-2 text-black"
+							placeholder="Enter your message"
+							className="input rounded-none w-full lg:w-3/4 text-black"
 							{...register("message", { required: true })}
 						/>
 						{errors.message && <span className="text-red-500">Empty Message</span>}
 
-						<button className="btn btn-info">
-							<BiSend className="text-2xl">
-								<input type="submit" id="sendButton" className="btn" />
-							</BiSend>
-						</button>
+						<input type="submit" className="btn rounded-none btn-info" id="sendButton" value="Send" />
 					</form>
 				</div>
 			) : (
